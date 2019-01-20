@@ -1,0 +1,49 @@
+version: '3'
+
+networks:
+  web:
+    external: true
+  internal:
+    external: false
+
+services:
+  mysql:
+    image: mysql:5.6
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE=mysql
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD
+    networks:
+      - internal
+    labels:
+      - traefik.enable=false
+    restart: always
+
+  adminer:
+    image: adminer:4.6.3-standalone
+    labels:
+      - traefik.backend=adminer
+      - traefik.frontend.rule=Host:db-admin.foussa.io
+      - traefik.docker.network=web
+      - traefik.port=8080
+    networks:
+      - internal
+      - web
+    depends_on:
+      - mysql
+
+  blog:
+    image: wordpress:5.0.3-apache
+    environment:
+      - WORDPRESS_DB_PASSWORD
+    labels:
+      - traefik.backend=blog
+      - traefik.frontend.rule=Host:blog.foussa.io
+      - traefik.docker.network=web
+      - traefik.port=80
+    networks:
+      - internal
+      - web
+    depends_on:
+      - mysql

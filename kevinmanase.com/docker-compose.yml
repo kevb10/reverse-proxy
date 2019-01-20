@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  personal:
+    image: kevin/portfolio
+    labels:
+      - traefik.backend=personal
+      - traefik.frontend.rule=Host:kevinmanase.com
+      - traefik.frontend.entryPoints=http,https
+      - traefik.docker.network=web
+      - traefik.port=80
+      - traefik.enable=true
+    container_name: "personal_website"

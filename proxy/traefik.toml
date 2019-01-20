@@ -1,0 +1,39 @@
+defaultEntryPoints = ["http", "https"]
+
+[entryPoints]
+  [entryPoints.dashboard]
+    address = ":8080"
+    [entryPoints.dashboard.auth]
+      [entryPoints.dashboard.auth.basic]
+        users = ["user:md5hashedpassword"]
+  [entryPoints.http]
+    address = ":80"
+      [entryPoints.http.redirect]
+        entryPoint = "https"
+    [entryPoints.https]
+    address = ":443"
+
+
+[api]
+entrypoint="dashboard"
+
+[acme]
+email = "myemail@gmail.com"
+storage = "acme.json"
+entryPoint = "https"
+onHostRule = true
+  [acme.httpChallenge]
+  entryPoint = "http"
+  [[acme.domains]]
+    main = "foussa.io"
+    sans = ["blog.foussa.io", "monitor.foussa.io"]
+  [[acme.domains]]
+    main = "kevinmanase.com"
+
+[file]
+watch = true
+
+[docker]
+domain = "foussa.io"
+watch = true
+network = "web"
