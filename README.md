@@ -2,17 +2,18 @@
 I have one Digital Ocean droplet with an IP address of 123.23.123.45. I want it to serve multiple websites/apps.
 
 # Goals
-- Show my portfolio at kevinmanase.com
-- Run my blog at blog.foussa.io
-- Have a front for foussa.io
-- All of those accessible from both wwww.domain.com & domain.com and `http` & `https`
-- Do all of that with Traefik
+- [x] Show my portfolio at kevinmanase.com
+- [x] Run my blog at blog.foussa.io
+- [x] Have a front for foussa.io
+- [x] All of those accessible from both wwww.domain.com & domain.com 
+- [ ] Also accessible from `http` & `https`
+- [ ] Do all of that with Traefik
 
 # What's working
 I can access blog.foussa.io, monitor.foussa.io, db-admin.foussa.io
 
 # What's not working
-- I get a bad getaway or 404 when I access foussa.io, kevinmanase.com
+- ~~I get a bad getaway or 404 when I access foussa.io, kevinmanase.com~~
 - `https` doesn't seem to work when I use a `docker-compose` for the proxy
 It works when I use the following command
 ```
